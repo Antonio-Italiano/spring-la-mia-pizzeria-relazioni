@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+<table class="table" th:if="${pizze.size() != 0}">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">fotoUrl</th>
+      <th scope="col">nome</th>
+      <th scope="col">descrizione</th>
+      <th scope="col">prezzo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="pizza : ${pizze}">
+      <th scope="row" th:text="${pizza.id}"></th>
+      <td><img height="200px" width="200px" th:src="${pizza.fotoUrl}"/></td>
+      <td th:text="${pizza.nome}"></td>
+      <td th:text="${pizza.descrizione}"></td>
+      <td th:text="${pizza.prezzo}"></td>
+        <td>
+      		<a class="btn btn-primary" th:href="@{/pizze/{id}(id=${pizza.id})}">show</a> 
+      		<a class="btn btn-secondary" th:href="@{/pizze/update/{id}(id=${pizza.id})}">Modifica</a>
+    		<a class="btn btn-danger" th:href="@{/pizze/delete/{id}(id=${pizza.id})}">Elimina</a>     		
+    	</td>
+    </tr>
+    	<a class="btn btn-primary" th:href="@{/pizze/create}">Aggiungi</a>
+    	
+  </tbody>
+</table>
+
+<div th:if="${pizze.size() == 0}">
+	<h1>Nessuna Pizza disponibile</h1>
+</div>
+
+</body>
+</html>

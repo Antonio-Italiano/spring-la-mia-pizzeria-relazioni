@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<form class="d-flex flex-column align-items-center" th:action="@{'/pizze/' + ${pizzaId} + '/offerta-speciale/update/' + ${offertaSpeciale.id}}" method="POST" th:object="${offertaSpeciale}">
+		<h1 class="mb-3">Modifica Offerta</h1>
+		<label>Titolo</label>
+		<input class="mb-3" type="text" name="titolo" th:value="*{titolo}">
+		
+		<label>Data inizio</label>
+		<input class="mb-3" type="date" name="dataInizio" th:value="*{dataInizio}">
+		
+		<label>Data fine</label>
+		<input class="mb-3" type="date" name="dataFine" th:value="*{dataFine}">
+		
+		<label>Percentuale sconto</label>
+		<input class="mb-3" type="number" min="0" name="percentualeSconto" th:value="*{percentualeSconto}">
+		
+		<button class="btn btn-success">Modifica</button>
+	</form>
+	
+</body>
+</html>
