@@ -19,6 +19,10 @@
 		<label>prezzo:</label>
 		<input type="number" name="prezzo">
 		<br>		
+		<div th:each="ingrediente : ${ingredienti}">
+			<input th:id="${'ingrediente-' + ingrediente.id}" th:value="${ingrediente.id}" type="checkbox" name="ingredienti">
+			<label th:for="${'ingrediente-' + ingrediente.id}">[[ ${ingrediente.nome} ]]</label>
+		</div>
 		<button>Crea</button>
 	</form>
 
