@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<form th:action="@{/ingredienti/update/{id}(id = ${ingredienti.id})}" method="post">
+
+		<label>nome:</label>
+		<input type="text" name="nome" th:value="${ingredienti.nome}">
+		<p th:if="${errori != null && errori.hasFieldErrors('nome')}" th:text="${errori.getFieldError('nome').defaultMessage}"></p>
+		<button type="submit">Modifica</button>
+	</form>
+	
+</body>
+</html>

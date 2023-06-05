@@ -4,7 +4,9 @@ package org.java.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.demo.pojo.Ingredienti;
 import org.java.demo.pojo.Pizza;
+import org.java.demo.service.IngredientiService;
 import org.java.demo.service.PizzaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class pizzaController {
 
 	@Autowired
 	private PizzaService pizzaService;
+	
+	@Autowired
+	private IngredientiService ingredientiService;
 	
 	@GetMapping("/pizze")
 	public String index(Model model) {
@@ -43,14 +48,25 @@ public class pizzaController {
 		Optional<Pizza> optPizza = pizzaService.findByIdWithOffertaSpeciale(id);
 		Pizza pizza = optPizza.get();
 		
+		Optional<Pizza> firstPizzaOpt = pizzaService.findByIdWithOffertaSpeciale(id);
+		Pizza offertePizza = firstPizzaOpt.get();
+		
+		List<Ingredienti> ingredienti = pizza.getIngredienti();
+		
+		model.addAttribute("ingredienti",ingredienti);
+		model.addAttribute("offerte", offertePizza.getOffertaSpeciali());
 		model.addAttribute("pizza", pizza);
 		
 		return "show";
 	}	
 
 	@GetMapping("pizze/create")
-	public String getCreate() {
+	public String getCreate(Model model) {
 		
+		List<Ingredienti> ingredienti = ingredientiService.findAll();
+		
+		model.addAttribute("ingredienti",ingredienti);
+		model.addAttribute("pizza",new Pizza());
 		return "create";
 	}
 	
@@ -82,6 +98,8 @@ public class pizzaController {
 		Optional<Pizza> pizzaOpt = pizzaService.findById(id);
 		Pizza pizza = pizzaOpt.get();
 		model.addAttribute("pizza", pizza);
+		List<Ingredienti> ingredienti = ingredientiService.findAll();		
+		model.addAttribute("ingredienti",ingredienti);
 		
 		return "update";
 	}

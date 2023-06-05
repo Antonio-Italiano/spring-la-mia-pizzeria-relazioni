@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.demo.pojo.Ingredienti;
 import org.java.demo.pojo.OffertaSpeciale;
 import org.java.demo.pojo.Pizza;
+import org.java.demo.service.IngredientiService;
 import org.java.demo.service.OffertaSpecialeService;
 import org.java.demo.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	@Autowired 
 	private OffertaSpecialeService offertaSpecialeService;
 
+	@Autowired
+	private IngredientiService ingredientiService;
+	
 	@Override
 	public void run(String... args) throws Exception{
 		Pizza p = new Pizza("margherita", "descrizioneeeeee", "https://www.agricolapiano.com/blogpiano/wp-content/uploads/2022/10/Pizza-contemporanea.jpeg", 12.45);
@@ -59,7 +64,22 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 			Optional<Pizza> optPizzaSconto = pizzaService.findByIdWithOffertaSpeciale(pizza.getId());
 			Pizza pizzaSconto = optPizzaSconto.get();
 			System.out.println(pizzaSconto.getOffertaSpeciali());
-			
 		}
+		
+		Ingredienti i1 = new Ingredienti("pomodoro");
+		
+		ingredientiService.save(i1);
+		
+		Ingredienti i2 = new Ingredienti("mozzarella");
+		ingredientiService.save(i2);
+		
+		Ingredienti i3 = new Ingredienti("patatine");
+		ingredientiService.save(i3);
+		
+		Ingredienti i4 = new Ingredienti("olio");
+		ingredientiService.save(i4);
+		
+		Ingredienti i5 = new Ingredienti("farina");
+		ingredientiService.save(i5);
 	}
 }
