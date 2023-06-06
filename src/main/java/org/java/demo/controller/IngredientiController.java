@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.java.demo.pojo.Ingredienti;
+import org.java.demo.pojo.Pizza;
 import org.java.demo.service.IngredientiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,6 +73,13 @@ public class IngredientiController {
 		
 		Optional<Ingredienti> ingredientiOpt = ingredientiService.findById(id);
 		Ingredienti ingredienti = ingredientiOpt.get();
+		
+		if(ingredienti.getPizze().size() != 0) {
+			for(Pizza p : ingredienti.getPizze()) {
+				p.getIngredienti().remove(ingredienti);
+			}
+		}
+		
 		ingredientiService.deleteIngredienti(ingredienti);
 		
 		return "redirect:/ingredienti";
